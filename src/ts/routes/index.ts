@@ -10,4 +10,10 @@ router.get('/', (req: express.Request, res: express.Response, next: Function) =>
   });
 });
 
+router.get('/hoge', (req: express.Request, res: express.Response, next: Function) => {
+  res.render('index', {
+    title: 'Express'
+  });
+});
+
 export = router;
