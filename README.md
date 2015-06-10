@@ -59,3 +59,63 @@ using unit test framework is mocha.
 
 Deploy source files(src/js) to dest directory(dest/), 
 and minify JavaScript source files.
+
+
+## Project directory tree
+
+    [project-root]
+    ├ .idea/        <- IntelliJプロジェクト環境用ディレクトリ
+    ├ bin/          <- Node.jsアプリケーションサーバ(起点)
+    ├ node_modules/ <- Node.jsパッケージ
+    ├ src/          <- 開発ソース用ディレクトリ
+    │ ├ js         <- TypeScriptからトランスパイルされたJavaScriptファイル
+    │ │ ├ public/
+    │ │ │ ├ images/
+    │ │ │ ├ javascripts/
+    │ │ │ │  ├ vendor/
+    │ │ │ │  └ [Your JavaScript file]
+    │ │ │ └ stylesheets/
+    │ │ │     └ hoge.css
+    │ │ ├ routes/
+    │ │ │  ├ index.js
+    │ │ │  └ hoge.js
+    │ │ ├ views/
+    │ │ │  ├ index.jade
+    │ │ │  └ hoge.jade
+    │ │ └ app.js
+    │ └ ts         <- 開発用TypeScriptソースディレクトリ(基本はこの下のソースコードを編集する)
+    │    ├ public/ <- クライアントサイド公開用ディレクトリ(画像やCSS、JavaScriptプラグインなど)
+    │    │ ├ images/
+    │    │ ├ javascripts/
+    │    │ │  ├ vendor/
+    │    │ │  └ [Your JavaScript file]
+    │    │ └ stylesheets/
+    │    │     └ hoge.stylus
+    │    ├ routes/   <- expressのRouting用ディレクトリ(ユーザリクエストを処理する部分)
+    │    │  ├ index.ts
+    │    │  └ hoge.ts
+    │    ├ views/    <- expressのView(Jadeテンプレートエンジンを使用)
+    │    │  ├ index.jade
+    │    │  └ hoge.jade
+    │    ├ libs/     <- TypeScript型定義ファイルなど、ライブラリ類を格納するディレクトリ
+    │    │  ├ typings  <- tsdコマンドにて取得した型定義ファイル格納用のディレクトリ
+    │    │  │  ├ hoge.ts.d
+    │    │  │  └ fuga.ts.d
+    │    │  └ tsd.json <- tsdコマンドの--saveオプションにて追記されるtsd情報ファイル
+    │    └ app.ts  <- expressアプリケーションのmainに相当するソースファイル
+    ├ test/    <- テストコード格納用ディレクトリ
+    │ ├ unit  <- ユニットテスト用(expressフレームワークで使用するファイルと1対1)
+    │ │ ├ routes/
+    │ │ │ ├ index.js
+    │ │ │ └ hoge.js
+    │ │ ├ public/
+    │ │ │ ├ fuga.js
+    │ │ └ app.js
+    │ └ scenario <- シナリオテスト用(ログイン操作、ユーザ操作などをまとめたテスト)
+    │    ├ login.js
+    │    ├ users.js
+    │    └ hoge.js
+    ├ dest/         <- デプロイ用ディレクトリ
+    ├ gulpfile.js   <- gulp設定ファイル
+    ├ package.json  <- Node.jsパッケージ設定ファイル
+    └ [project-name].iml  <--- IntelliJ プロジェクトファイル
