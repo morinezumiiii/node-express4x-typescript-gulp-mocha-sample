@@ -3,16 +3,20 @@
 import express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+//router.hello ((msg: string) => {
+//  console.log(msg);
+//});
+
 router.get('/', (req: express.Request, res: express.Response, next: Function) => {
   res.render('index', {
     title: 'Express'
   });
 });
 
-router.get('/hoge', (req: express.Request, res: express.Response, next: Function) => {
+
+router.get('/:msg', (req: express.Request, res: express.Response, next: Function)  => {
   res.render('index', {
-    title: 'Express'
+    title: 'Expresss'
   });
 });
 

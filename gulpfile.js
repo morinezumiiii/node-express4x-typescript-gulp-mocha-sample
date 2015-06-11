@@ -3,6 +3,8 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var typescript = require('gulp-typescript');
+var mocha = require('gulp-mocha');
+var gutil = require('gulp-util');
 
 var typescriptProject = typescript.createProject({
   module: 'commonjs',
@@ -14,9 +16,10 @@ var typescriptProject = typescript.createProject({
 /* build */
 gulp.task('build', function(cb) {
   runSequence(
-    'transpile-app-ts',
-    'transpile-routes-ts',
     'transpile-public-ts',
+    'transpile-routes-ts',
+    'transpile-app-ts',
+    'transpile-test-ts',
     'copy-views-jade',
     'copy-public-images',
     'copy-public-vendor',
@@ -48,6 +51,14 @@ gulp.task('transpile-public-ts', function() {
     .pipe(gulp.dest('src/js/public/javascripts/'));
 });
 
+/* transpile-test-ts */
+gulp.task('transpile-test-ts', function() {
+  return gulp.src('src/ts/test/**/*.ts')
+    .pipe(typescript(typescriptProject))
+    .js
+    .pipe(gulp.dest('src/js/test/'));
+});
+
 /* copy-views-jade */
 gulp.task('copy-views-jade', function() {
   return gulp.src('src/ts/views/*.jade')
@@ -74,12 +85,16 @@ gulp.task('copy-public-stylesheets', function() {
 
 /* watch */
 gulp.task('watch', function() {
-  // TODO: 監視対象ファイルに変更があったら、自動的に実行
+  gulp.watch(['src/ts/**/*', 'test/**'], function() {
+    runSequence('build', 'test');
+  });
 });
 
 /* test */
 gulp.task('test', function() {
-  // TODO: mochaなどの単体テストツールを実行
+  return gulp.src(['test/**/*.js'], { read: false })
+    .pipe(mocha({ reporter: 'list' }))
+    .on('error', gutil.log);
 });
 
 /* deploy */

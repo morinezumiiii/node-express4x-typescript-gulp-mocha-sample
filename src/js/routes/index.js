@@ -5,9 +5,9 @@ router.get('/', function (req, res, next) {
         title: 'Express'
     });
 });
-router.get('/hoge', function (req, res, next) {
+router.get('/:msg', function (req, res, next) {
     res.render('index', {
-        title: 'Express'
+        title: 'Expresss'
     });
 });
 module.exports = router;

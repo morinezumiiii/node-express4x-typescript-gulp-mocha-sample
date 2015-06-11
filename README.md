@@ -22,7 +22,9 @@
 
     $ cd [project-root]
     $ npm install gulp-typescript --save-dev
-    $ npm install gulp-tsd
+    $ npm install gulp-tsd --save-dev
+    $ npm install gulp-mocha --save-dev
+    $ npm install gulp-util --save-dev
 
 ### Get the TypeScript definition files
 
@@ -48,7 +50,7 @@ Transpile TypeScript source files(src/ts) to JavaScript source files(src/js).
 
 Watch modify TypeScript source files(src/ts).
 
-modified then, run 'gulp build'.
+modified then, run 'gulp build' and 'gulp test'.
 
 #### gulp test
 
